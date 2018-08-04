@@ -1,0 +1,7 @@
+.employ-content{
+	/*margin-left: 50px;*/
+}
+.employ-content > div > p{
+	display: inline-block;
+	vertical-align: top;
+}

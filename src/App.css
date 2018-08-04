@@ -1,0 +1,36 @@
+.app{
+	width: 100%;
+	height: 100%;
+}
+/*侧边的滚动条*/
+ .sidebar::-webkit-scrollbar {
+        display: none;
+    }
+/* 取消输入框的外边距底部的24px*/
+div.ant-row.ant-form-item{
+  margin-bottom: 0;
+}
+
+/*顶部的底部阴影*/
+.header{
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
+  border-bottom:  1px solid #ddd;
+}
+
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
