@@ -6,7 +6,7 @@ const fs = require('fs');
 
 app.use(cors({
     credentials: true, 
-    origin: "https://39.108.97.182:443",
+    origin: "",
 }));
 
 app.use(express.static(__dirname+"/build")); //views路径
