@@ -12,7 +12,7 @@ class ShowClassName extends React.Component{
 
 	render(){
 		return(
-			<Link to="/main/classStudents" onClick={this.changeTargetClass}><Icon type="user" />{this.props.oname}</Link>
+			<Link to="/main/classStudents" onClick={this.changeTargetClass}><Icon type="profile" />{this.props.oname}</Link>
 		)
 	}
 }

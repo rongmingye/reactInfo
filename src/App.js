@@ -17,13 +17,15 @@ import Side from './components/Side';
 import Login from './pages/login/Login';
 import StudentPractice from './pages/studentPractice/StudentPractice';
 import TeacherPractice from './pages/teacherPractice/TeacherPractice';
-import DetialPractice from './pages/teacherPractice/DetialPractice';
 
 import Employ from './pages/employ/Employ';
 import PublicEmploy from './pages/employ/PublicEmploy';
+import ManagerEmploy from './pages/employ/ManagerEmploy';
 import Board from './pages/board/Board';
 import Question from './pages/board/Question';
+import ManagerQuestion from './pages/board/ManagerQuestion';
 import News from './pages/news/News';
+import ManageNews from './pages/news/ManageNews';
 import ClassStudents from './pages/classStudents/ClassStudents';
 
 
@@ -61,7 +63,7 @@ class Main extends Component {
         fresh();
         var isLogin = window.sessionStorage.getItem("isLogin");
         if(!isLogin){
-            this.props.history.replace("/"); // 没有登陆过就返回login页面
+            this.props.history.push("/"); // 没有登陆过就返回login页面
         }
     }
 
@@ -146,13 +148,16 @@ class Main extends Component {
                                 <Route exact path='/main' component={News} />
                                 <Route path='/main/studentPractice' component={StudentPractice} />
                                 <Route path='/main/teacherPractice' component={TeacherPractice} />
-                                <Route path='/main/detialPractice' component={DetialPractice} />
 
                                 <Route path='/main/employ' component={Employ} />      
                                 <Route path='/main/PublicEmploy' component={PublicEmploy} />
                                 <Route path='/main/board' component={Board} />
                                 <Route path='/main/question' component={Question} />
                                 <Route path='/main/classStudents' component={ClassStudents} />
+
+                                <Route path='/main/manageNews' component={ManageNews} />
+                                <Route path='/main/managerEmploy' component={ManagerEmploy} />
+                                <Route path='/main/managerQuestion' component={ManagerQuestion} />
                             </Switch>
                         </Content>
                      </Layout>

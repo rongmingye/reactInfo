@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Row, Col, Input, Modal, Button, message } from 'antd';
+import { List, Table, Row, Col, Input, Modal, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
 import date from '../../config/date.js';
 
@@ -71,6 +71,29 @@ class Board extends React.Component{
 	}
 
 	render(){
+		var dataSource = [];
+		this.state.questions.map((item,i)=>{
+			dataSource.unshift(item);
+			return null;
+		});
+
+		var columns = [{
+			title: "话题列表",
+			dataIndex: "question_content",
+			render: (text, record)=>{
+				var item = record;
+				return (
+					<div>
+						<Link to='/main/question' onClick={()=>this.linkQuestion(item.question_id)}>
+							<Row>
+								<Col> {item.question_content} </Col>
+								<Col> 作者：{item.question_author} {item.timer} </Col>
+							</Row>
+						</Link>
+					</div>
+				)
+			}
+		}]
 		return (
 			<div className="board">
 				<Button type="primary" onClick={this.showModal} style={{marginBottom: "10px"}}>发布话题</Button>
@@ -86,20 +109,8 @@ class Board extends React.Component{
 		        >
 		        	 <Input.TextArea rows='4' id="content"></Input.TextArea>
 		        </Modal>
-				<List
-					header={<h3>话题列表</h3>}
-					bordered
-					dataSource={this.state.questions}
-					renderItem={item=>(
-					<List.Item>
-						<Link to='/main/question' onClick={()=>this.linkQuestion(item.question_id)}>
-							<Row>
-								<Col> {item.question_content} </Col>
-								<Col> 作者：{item.question_author} {item.timer} </Col>
-							</Row>
-						</Link>
-					</List.Item>
-					)}/>
+				<Table dataSource={dataSource}  columns={columns} bordered />
+				 	
 			</div>	
 		);
 	}

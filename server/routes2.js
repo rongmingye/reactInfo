@@ -22,6 +22,7 @@ function routes2(app){
 			var data = {
 	    		code: 1,
 	    		data: "success",
+	    		msg: "",
 	    	}
 			console.log("/employ/publish success");
 			res.send(data);
@@ -48,6 +49,7 @@ function routes2(app){
 	    	var data = {
 	    		code: 1,
 	    		data: result,
+	    		msg: "",
 	    	}
 			console.log("/employ/info success");
 			res.send(data);
@@ -66,13 +68,16 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: result
+				data: result,
+				msg: "",
 			}
 			console.log("/school/news success");
 			res.send(data);
 			res.end();  
 	    });
 	});
+
+
 
 	// 获取班级学生的信息
 	app.post('/school/classStudents', urlencodedParser, function(req, res){
@@ -85,7 +90,8 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: result
+				data: result,
+				msg: "",
 			}
 			console.log("/school/classStudents success");
 			res.send(data);
@@ -104,7 +110,8 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: result
+				data: result,
+				msg: "",
 			}
 			console.log("/board/getQuestions success");
 			res.send(data);
@@ -112,7 +119,7 @@ function routes2(app){
 	    });
 	});
 
-	// 获取当前问题和评论
+	// 获取当前问题
 	app.post('/board/getQuestion', urlencodedParser, function(req, res){
 		console.log("/board/getQuestion");
 		var sql =  "select * from question where question_id = '"+req.body.questionId+"'";
@@ -123,7 +130,8 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: result[0]
+				data: result[0],
+				msg: "",
 			}
 			console.log("/board/getQuestion success");
 			res.send(data);
@@ -142,7 +150,8 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: result
+				data: result,
+				msg: "",
 			}
 			console.log("/board/getComments success");
 			res.send(data);
@@ -161,7 +170,8 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: result
+				data: result,
+				msg: "",
 			}
 			console.log("/board/getReplys success");
 			res.send(data);
@@ -172,7 +182,6 @@ function routes2(app){
 	// 发布问题
 	app.post('/board/publicQuestion', urlencodedParser, function(req, res){
 		console.log("/board/publishQuestion");
-		console.log(req.body);
 		var request = req.body;
 		var sql = "insert into question(question_author, question_content, timer) values('"
 			+request.author+"','"+request.content+"','"+request.timer+"')";
@@ -184,7 +193,8 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: "success"
+				data: "success",
+				msg: "",
 			}
 			console.log("/board/publicQuestion success");
 			res.send(data);
@@ -195,7 +205,6 @@ function routes2(app){
 	// 发布评论
 	app.post('/board/publicComment', urlencodedParser, function(req, res){
 		console.log("/board/publicComment");
-		console.log(req.body);
 		var request = req.body;
 		var sql = "insert into comment(question_Id, comment_author, target_name , comment_timer, comment_content) values('"
 			+request.questionId+"','"+request.author+"','"+request.target+"','"+ request.timer+"','"+request.content+"')";
@@ -207,7 +216,8 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: "success"
+				data: "success",
+				msg: "",
 			}
 			console.log("/board/publicComment success");
 			res.send(data);
@@ -218,7 +228,6 @@ function routes2(app){
 	// 发布回复
 	app.post('/board/publicReply', urlencodedParser, function(req, res){
 		console.log("/board/publicReply");
-		console.log(req.body);
 		var request = req.body;
 		var sql = "insert into reply(question_id,comment_id, reply_author, target_name , reply_timer, reply_content) values('"
 			+request.questionId+"','"+request.commentId+"','"+request.author+"','"+request.target+"','"+ request.timer+"','"+request.content+"')";
@@ -230,7 +239,8 @@ function routes2(app){
 			}
 			var data = {
 				code: 1,
-				data: "success"
+				data: "success",
+				msg: "",
 			}
 			console.log("/board/publicComment success");
 			res.send(data);

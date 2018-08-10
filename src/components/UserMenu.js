@@ -74,7 +74,7 @@ class UserMenu extends React.Component{
 	}
 
 	render(){
-		var menu = "";
+		var menu = <div></div>;
 		var item = this.state.userInfo;
 		if(this.state.userType === 'teacher'){
 			 menu = (
@@ -110,16 +110,19 @@ class UserMenu extends React.Component{
 			        	<Row><Col span={4}>电话</Col> <Col span={14} offset={6}>{item.student_tel}</Col></Row>
 			        </Menu.Item>
 			        <Menu.Item>
+			        	<Row><Col span={4}>班级</Col> <Col span={14} offset={6}>{item.class_name}</Col></Row>
+			        </Menu.Item>
+			        <Menu.Item>
 			        	<Row><Col span={4}>学号</Col> <Col span={14} offset={6}>{item.student_id}</Col></Row>
 			        </Menu.Item>
 			       	<Menu.Item>
 			        	<Row><Col span={4}>专业</Col> <Col span={14} offset={6}>{item.profession}</Col></Row>
 			        </Menu.Item>
-			        <Menu.Item>
-			        	<Row><Col span={4}>学校</Col> <Col span={14} offset={6}>{item.school}</Col></Row>
-			        </Menu.Item>
 			       	<Menu.Item>
 			        	<Row><Col span={4}>年级</Col> <Col span={14} offset={6}>{item.grade}</Col></Row>
+			        </Menu.Item>
+			        <Menu.Item>
+			        	<Row><Col span={4}>学校</Col> <Col span={14} offset={6}>{item.school}</Col></Row>
 			        </Menu.Item>
 			        <Menu.Divider />
 			        <Menu.Item>
@@ -134,7 +137,7 @@ class UserMenu extends React.Component{
 		return(
 			<div>
 				<Dropdown overlay={menu} trigger={['click']}>
-	                    <span className="ant-dropdown-link" href="#" style={{color:'#000',cursor:'pointer'}}>
+	                    <span className="ant-dropdown-link" style={{color:'#000',cursor:'pointer'}}>
 	                        <Icon type="user" />
 	                    </span>
 	            </Dropdown>
@@ -176,7 +179,7 @@ class RepasswordForm extends React.Component{
 	    e.preventDefault();
 	    this.props.form.validateFieldsAndScroll((err, values) => {
 		    if (!err) {
-		        console.log('Received values of form: ', values);
+		        // console.log('Received values of form: ', values);
 		       var params = {
 					username: sessionStorage.getItem('username'),
 					userType: sessionStorage.getItem('userType'),

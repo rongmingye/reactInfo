@@ -19,7 +19,8 @@ function routes(app){
 			}
 			var data = {
 				code: 1,
-				data: result
+				data: result,
+				msg: "",
 			}
 			console.log("/teacher/practices success");
 			res.send(data);
@@ -40,7 +41,8 @@ function routes(app){
 			
 			var data = {
 				code: 1,
-				data: result[0]
+				data: result[0],
+				msg: "",
 			}
 			console.log("/student/practice success");
 			res.send(data);
@@ -65,6 +67,7 @@ function routes(app){
 			var data = {
 				code: 1,
 				data: result[0],
+				msg: "",
 			}
 			console.log("/user/info success");
 			res.send(data);
@@ -100,7 +103,8 @@ function routes(app){
 			}
 			var data = {
 				code: 1,
-				data: "success"
+				data: "success",
+				msg: "",
 			}
 			console.log("/student/publicPractice success");
 			res.send(data);
@@ -178,7 +182,8 @@ function routes(app){
 				}
 				var data = {
 					code: 1,
-					data: "success"
+					data: "success",
+					msg: "",
 				}
 				console.log("/user/changeInfo success");
 				res.send(data);
@@ -194,7 +199,8 @@ function routes(app){
 				}
 				var data = {
 					code: 1,
-					data: "success"
+					data: "success",
+					msg: "",
 				}
 				console.log("/user/changeInfo success");
 				res.send(data);

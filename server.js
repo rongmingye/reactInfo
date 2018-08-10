@@ -14,10 +14,12 @@ var query = require('./server/mysql.js');
 var login = require('./server/login.js');
 var routes = require('./server/routes.js');
 var routes2 = require('./server/routes2.js');
+var routesManager = require('./server/routesManager.js');
 
 login(app);
 routes(app);
 routes2(app);
+routesManager(app);
 
 // 所有的请求都回到index页面
 app.get('/', function(req, res){

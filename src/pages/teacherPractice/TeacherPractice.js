@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Modal } from 'antd';
+import { List, Modal, Divider } from 'antd';
 
 class TeacherPractice extends React.Component{
 
@@ -69,7 +69,7 @@ class TeacherPractice extends React.Component{
 						<p><span>学院：</span>{item.academe}</p>
 						<p><span>学校：</span>{item.school}</p>
 					</div>
-					<h3 className="show-list-title">学生实习信息：</h3>
+					<Divider />
 					<div className="content-list">
 						<p><span>指导老师：</span>{item.teacher_name}</p>
 						<p><span>指导老师电话：</span>{item.teacher_tel}</p>

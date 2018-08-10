@@ -10,9 +10,9 @@ class PublicEmployForm extends React.Component{
 	    e.preventDefault();
 	    this.props.form.validateFieldsAndScroll((err, values) => {
 		    if (!err) {
-		        console.log('Received values of form: ', values);
+		        // console.log('Received values of form: ', values);
 		        window.Axios.post(window.ApiName.employPublish, values).then(res=>{
-		        	console.log(res);
+		        	// console.log(res);
 		        	message.info("发布成功");
 		        	window.setTimeout(function(){
 		        		that.props.history.push('/main/employ');

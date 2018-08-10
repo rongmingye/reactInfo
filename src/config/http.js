@@ -2,6 +2,7 @@ import Axios from 'axios';
 
 // var baseUrl = 'http://localhost:8080';
 var baseUrl = 'http://192.168.0.105:8080';
+// var baseUrl = 'https://rongmingye.xin:443';
 
 
 var axios = Axios.create({

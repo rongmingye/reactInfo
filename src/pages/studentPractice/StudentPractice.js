@@ -9,6 +9,7 @@ class StudentPractice extends React.Component{
 		this.state = {
 			visible: false,
 			studentPractice: "",
+			studentName: sessionStorage.getItem('username')
 		}
 	}
 
@@ -17,14 +18,13 @@ class StudentPractice extends React.Component{
 	}
 
 	// 获取该学生的信息, this.state.studentName
-	// 保存该学生信息到store.studentInfo
 	getStudentPractice(){
 		var params = {
-			student_name: sessionStorage.username,
+			student_name: sessionStorage.getItem("username"),
 		}
-		console.log("params:"+JSON.stringify(params));
+		// console.log("params:"+JSON.stringify(params));
 		window.Axios.post(window.ApiName.studentPractice, params).then( res => {
-			console.log(res);
+			// console.log(res);
 			this.setState({
 				studentPractice: res.data
 			})
@@ -41,7 +41,6 @@ class StudentPractice extends React.Component{
 	}
 
 	handleCancel = (e) => {
-	    console.log(e);
 	    this.setState({
 	      	visible: false,
 	    });
@@ -49,31 +48,33 @@ class StudentPractice extends React.Component{
 
 	// 提交修改信息
 	handleOk = (e) => {
-		console.log(e);
+		var that = this;
 		if(window.confirm("确定提交修改！") ){
 			var params = {
-				'studentName': this.state.studentName,
-				'teacher_name': this.refs.teacher_name.value,
-				'teacher_tel': this.refs.teacher_tel.value,
-				'practice_company': this.refs.practice_company.value,
-				'practice_time': this.refs.practice_time.value,
-				'practice_long': this.refs.practice_long.value,
-				'practice_type': this.refs.practice_type.value,
-				'post': this.refs.post.value,
-				'relation_name': this.refs.relation_name.value,
-				'relation_tel':  this.refs.relation_tel.value,
-				'arrange': this.refs.arrange.value,
-				'company_taken': this.refs.company_taken.value,
-				'tenBreak': this.refs.tenBreak.value,
-				'sixteenBreak': this.refs.sixteenBreak.value,
-				'changed': this.refs.changed.value,
-				'remark': this.refs.remark.value
+				'student_name': this.state.studentName,
+				'teacher_name': document.querySelector("#teacher_name").value,
+				'teacher_tel': document.querySelector("#teacher_tel").value,
+				'practice_company': document.querySelector("#practice_company").value,
+				'practice_time': document.querySelector("#practice_time").value,
+				'practice_long': document.querySelector("#practice_long").value,
+				'practice_type': document.querySelector("#practice_type").value,
+				'post': document.querySelector("#post").value,
+				'relation_name': document.querySelector("#relation_name").value,
+				'relation_tel':  document.querySelector("#relation_tel").value,
+				'arrange': document.querySelector("#arrange").value,
+				'company_taken': document.querySelector("#company_taken").value,
+				'tenBreak': document.querySelector("#tenBreak").value,
+				'sixteenBreak': document.querySelector("#sixteenBreak").value,
+				'changed': document.querySelector("#changed").value,
+				'remark': document.querySelector("#remark").value
 			}
-			window.Axios.post(window.ApiName.student.publicPractice, params).then( res=>{
+			// console.log(params);
+			window.Axios.post(window.ApiName.studentPublicPractice, params).then( res=>{
 				message.info('发布成功');
 				this.setState({
 			      	visible: false,
 			    });
+			    that.getStudentPractice();
 			})
 			.catch( err => {
 				message.info('发布失败');
@@ -97,7 +98,7 @@ class StudentPractice extends React.Component{
 		          	cancelText="取消"
 		          	okText="提交"
 		        >
-		          	<Form  id="publicPractice" onsubmit="return false" className="login-form">
+		          	<Form  id="publicPractice" className="login-form">
 	                   	<FormItem>
 	                        <label>指导老师：</label>
 	                        <Input type="text" name="teacher_name" id="teacher_name" defaultValue={item.teacher_name} />
