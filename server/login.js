@@ -5,22 +5,24 @@ var urlencodedParser = bodyParser({extended: false});
 function login(app){
 	// 登陆
 	app.post('/user/login', urlencodedParser, function(req, res){
-		var odata = req.body;
-		console.log(odata.userType);
-		var sql = "select * from "+ odata.userType;
+		var request = req.body;
+		var sql = "select * from "+ request.userType;
 		query(sql, function(err, result){
 		    if(err) {
 		        console.log(err.message);
 		        return;
 		     }
 		  	var isHave = false;
+		  	var username = '';
 		  	result.map(function(item, i){
-		    	if( odata.userType === "teacher"){
-		     		 if(odata.username == item.teacher_name && odata.password == item.teacher_pwd){
+		    	if( request.userType === "teacher"){
+		     		 if(request.account == item.teacher_id && request.password == item.teacher_pwd){
+		     		 	username = item.teacher_name;
 		        		isHave = true;
 		      		}
-		   		}else if(odata.userType === "student"){
-		        	if(odata.username == item.student_name && odata.password == item.student_pwd){
+		   		}else if(request.userType === "student"){
+		        	if(request.account == item.student_id && request.password == item.student_pwd){
+		        		username = item.student_name;
 		        		isHave = true;
 		      		}
 		    	}
@@ -31,7 +33,7 @@ function login(app){
 		        isHave = false;
 		        var data = {
 		        	code: 1,
-		        	result: { username:odata.username, userType: odata.userType },
+		        	result: { username: username, userType: request.userType },
 		        	msg: "登陆成功"
 		        }
 		        res.send(data);

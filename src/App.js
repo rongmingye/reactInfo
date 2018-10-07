@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Layout, Row, Col, Icon, Popconfirm} from 'antd';
+import { Layout, Row, Col, Icon} from 'antd';
 
 // 引入所有基础配置
 import './config/globalConfig';
-import fresh from './config/fresh'
 
 // 引入导航组件
-import { BrowserRouter, Switch, Route} from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link} from "react-router-dom";
 
 // 引入组件
 import UserMenu from './components/UserMenu';
@@ -17,17 +16,23 @@ import Side from './components/Side';
 import Login from './pages/login/Login';
 import StudentPractice from './pages/studentPractice/StudentPractice';
 import TeacherPractice from './pages/teacherPractice/TeacherPractice';
+import NoticeList from './pages/studentPractice/NoticeList';
 
 import Employ from './pages/employ/Employ';
 import PublicEmploy from './pages/employ/PublicEmploy';
-import ManagerEmploy from './pages/employ/ManagerEmploy';
 import Board from './pages/board/Board';
 import Question from './pages/board/Question';
-import ManagerQuestion from './pages/board/ManagerQuestion';
 import News from './pages/news/News';
-import ManageNews from './pages/news/ManageNews';
 import ClassStudents from './pages/classStudents/ClassStudents';
 
+import TeacherDesign from './pages/design/TeacherDesign.js';
+import TeachersDesign from './pages/design/TeachersDesign.js';
+import StudentDesign from './pages/design/StudentDesign.js';
+
+import ManageNotice from './pages/manage/ManageNotice';
+import ManagerEmploy from './pages/manage/ManagerEmploy';
+import ManagerQuestion from './pages/manage/ManagerQuestion';
+import ManageNews from './pages/manage/ManageNews';
 
 // 引入样式文件
 import "antd/dist/antd.css";
@@ -51,22 +56,48 @@ class App extends Component{
 }
 
 class Main extends Component {
-    state = {
-        collapsed: false,
-        marginLeft: 200,
-        logo: "高本协同管理系统"
-    };
-
-    // 判断有没有登陆
-    componentWillMount(){
-        // this.props.history.replace('/main');
-        fresh();
+   
+    constructor(props){
+        super(props);
         var isLogin = window.sessionStorage.getItem("isLogin");
+
         if(!isLogin){
             this.props.history.push("/"); // 没有登陆过就返回login页面
+            return null;
         }
+
+        if(this.props.history.location.pathname !== '/main'){
+            this.props.history.push('/main');
+            return null;
+        }
+
+        this.state = {
+            collapsed: false,
+            marginLeft: 200,
+            logo: "高本协同管理系统",
+            noticesNum: "",
+        };
     }
 
+    componentDidMount(){
+        this.noticesNewNum();
+    }
+
+    // 请求新公告数量
+    // params: {studentId}
+    noticesNewNum(){
+        var params = {
+            studentId: sessionStorage.getItem("account")
+        }
+        window.Axios.post(window.ApiName.noticesNewNum, params).then(res=>{
+            // console.log(res);
+            this.setState({
+                noticesNum: res.data,
+            })
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
 
 
     // 侧边的折叠
@@ -92,20 +123,14 @@ class Main extends Component {
         }
     }
 
-    // 退出系统
-    logout = () => {
-        this.props.history.push('/');
-        sessionStorage.clear();
-    }
-
     render() {
         return (
             <div>
                 <Layout>
                     <Sider
                         trigger={null}
-                        collapsible
-                        collapsed={this.state.collapsed}
+                        collapsible = "true"
+                        collapsed = {this.state.collapsed}
                         style={{ overflow: 'auto', height: '100vh'}}
                         className="sidebar"
                     >   
@@ -136,9 +161,12 @@ class Main extends Component {
                                     <UserMenu/>
                                 </Col>
                                 <Col span={2}>
-                                    <Popconfirm title="确定要退出系统" onConfirm={this.logout} okText="确定" cancelText="取消"> 
-                                        <Icon type="poweroff" />
-                                    </Popconfirm >
+                                    <Link to="/main/noticeList" onClick={()=>{
+                                            setTimeout(()=>{this.noticesNewNum()}, 2000)
+                                    }}>
+                                        <Icon type="bell"/>
+                                        <span style={{color: "#f00"}}>{this.state.noticesNum===0?"":this.state.noticesNum}</span>
+                                    </Link>
                                 </Col>
                             </Row>
                         </Header>
@@ -149,6 +177,10 @@ class Main extends Component {
                                 <Route path='/main/studentPractice' component={StudentPractice} />
                                 <Route path='/main/teacherPractice' component={TeacherPractice} />
 
+                                <Route path='/main/teacherDesign' component={TeacherDesign} />
+                                <Route path='/main/teachersDesign' component={TeachersDesign} />
+                                <Route path='/main/studentDesign' component={StudentDesign} />
+
                                 <Route path='/main/employ' component={Employ} />      
                                 <Route path='/main/PublicEmploy' component={PublicEmploy} />
                                 <Route path='/main/board' component={Board} />
@@ -156,8 +188,11 @@ class Main extends Component {
                                 <Route path='/main/classStudents' component={ClassStudents} />
 
                                 <Route path='/main/manageNews' component={ManageNews} />
-                                <Route path='/main/managerEmploy' component={ManagerEmploy} />
-                                <Route path='/main/managerQuestion' component={ManagerQuestion} />
+                                <Route path='/main/manageEmploy' component={ManagerEmploy} />
+                                <Route path='/main/manageQuestion' component={ManagerQuestion} />
+                                <Route path='/main/manageNotice' component={ManageNotice} />
+
+                                <Route path='/main/noticeList' component={NoticeList} />
                             </Switch>
                         </Content>
                      </Layout>

@@ -25,13 +25,7 @@ class Employ extends React.Component{
 	}
 
 	render(){
-		// 遍历招聘信息
-		var dataSource = [];
-		this.state.employInfo.map((item, i)=>{
-			dataSource.unshift(item);
-			return null;
-		});
-		var employList = dataSource.map((item, i)=>{
+		var employList = this.state.employInfo.map((item, i)=>{
 			return(
 					<Panel header={<h3>{i+1}、{item.company}</h3>} key={i}>
 					     <div className="employ-content">

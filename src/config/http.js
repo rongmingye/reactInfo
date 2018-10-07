@@ -1,7 +1,8 @@
 import Axios from 'axios';
 
-// var baseUrl = 'http://localhost:8080';
-var baseUrl = 'http://192.168.0.105:8080';
+var baseUrl = 'http://localhost:8080';
+// var baseUrl = 'http://39.108.97.182:8080';
+// var baseUrl = 'http://192.168.0.105:8080';
 // var baseUrl = 'https://rongmingye.xin:443';
 
 
@@ -26,6 +27,8 @@ axios.interceptors.response.use(function(response){
     if(response.data.code === 0) {
         return response.data;
     }else if(response.data.code === 1) {
+        return response.data;
+    }else{
         return response.data;
     }
   },function(error){

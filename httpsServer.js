@@ -17,11 +17,17 @@ var login = require('./server/login.js');
 var routes = require('./server/routes.js');
 var routes2 = require('./server/routes2.js');
 var routesManager = require('./server/routesManager.js');
+var routesLoad = require('./server/routesLoad.js');
+var routesNotice = require('./server/routesNotice.js');
+var routesDesign = require('./server/routesDesign.js');
 
 login(app);
 routes(app);
 routes2(app);
 routesManager(app);
+routesLoad(app);
+routesNotice(app);
+routesDesign(app);
 
 // 所有的请求都回到index页面
 app.get('*', function(req, res){

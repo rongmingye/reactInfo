@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Icon } from 'antd';
 import { connect } from "react-redux";
-import { changeTargetClass } from '../reducers/action';
+import { changeTargetClass } from '../reducers/targetClass.js';
 
 class ShowClassName extends React.Component{
 

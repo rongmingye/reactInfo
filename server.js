@@ -4,7 +4,7 @@ var cors = require('cors');
 
 app.use(cors({
     credentials: true, 
-    origin: "http://192.168.0.105:3000" 
+    origin: "http://localhost:3000" 
 }));
 
 app.use(express.static(__dirname+"/src")); //views路径
@@ -15,17 +15,22 @@ var login = require('./server/login.js');
 var routes = require('./server/routes.js');
 var routes2 = require('./server/routes2.js');
 var routesManager = require('./server/routesManager.js');
+var routesLoad = require('./server/routesLoad.js');
+var routesNotice = require('./server/routesNotice.js');
+var routesDesign = require('./server/routesDesign.js');
 
 login(app);
 routes(app);
 routes2(app);
 routesManager(app);
+routesLoad(app);
+routesNotice(app);
+routesDesign(app);
 
 // 所有的请求都回到index页面
 app.get('/', function(req, res){
     res.sendFile(__dirname+'/public/index.html');
 });
-
 
 // 监听端口
 var server = app.listen(8080, '0.0.0.0', function(){
@@ -33,7 +38,6 @@ var server = app.listen(8080, '0.0.0.0', function(){
     var port = server.address().port;
     console.log("http://%s:%s", host, port);
 });
-
 
 // 定时连接mysql， 解决8小时断开连接mysql问题
 let count = 0;

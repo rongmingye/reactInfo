@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Table, Row, Col, Input, Modal, Button, message } from 'antd';
+import { Table, Row, Col, Input, Modal, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
 import date from '../../config/date.js';
 
@@ -71,19 +71,14 @@ class Board extends React.Component{
 	}
 
 	render(){
-		var dataSource = [];
-		this.state.questions.map((item,i)=>{
-			dataSource.unshift(item);
-			return null;
-		});
 
 		var columns = [{
-			title: "话题列表",
 			dataIndex: "question_content",
+			title: "话题",
 			render: (text, record)=>{
 				var item = record;
 				return (
-					<div>
+					<div >
 						<Link to='/main/question' onClick={()=>this.linkQuestion(item.question_id)}>
 							<Row>
 								<Col> {item.question_content} </Col>
@@ -105,11 +100,10 @@ class Board extends React.Component{
 		          	width="800px"
 		          	cancelText="取消"
 		          	okText="提交"
-
 		        >
 		        	 <Input.TextArea rows='4' id="content"></Input.TextArea>
 		        </Modal>
-				<Table dataSource={dataSource}  columns={columns} bordered />
+				<Table dataSource={this.state.questions}  columns={columns} bordered />
 				 	
 			</div>	
 		);

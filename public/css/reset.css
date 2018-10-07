@@ -1,21 +1,65 @@
 *{
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-size: 14px;
-	text-align: left;
+	padding:0; 
+	margin:0; 
+	box-sizing: border-box; 
 }
-html,body,#root,.App{
+html, body, #root, .app{
 	width: 100%;
 	height: 100%;
 }
 
-
 .f-left{ float: left; }
 .f-right{ float: right; }
+.clearfix{ zoom: 1; }
 .clearfix:after{
-	clear: both;
 	display: block;
+	clear: both;
+	content: "";
 	height: 0;
-	content: '';
 }
+
+/* a连接 */
+a{
+ 	text-decoration: none;
+ 	color: #000; 
+}
+
+.container{
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+/* 文本颜色 */
+.text-primary{ color: #1890ff; }
+.text-success{ color: #6dd829; }
+.text-warning{ color: #fe9f0a; }
+.text-danger{ color: #da251c;}
+
+/* 背景颜色 */
+.bg-primary{ background-color: #1890ff ; }
+.bg-success{ background-color: #6dd829; } 
+.bg-warning{ background-color: #fe9f0a ; }
+.bg-danger{ background-color:  #da251c; }
+
+/* 外边距*/
+.m-t-xs{ margin-left: 10px; }
+.m-b-xs{ margin-bottom: 10px; }
+.m-l-xs{ margin-left: 10px; }
+.m-r-xs{ margin-right: 10px; }
+
+.m-t-md{ margin-left: 15px; }
+.m-b-md{ margin-bottom: 15px; }
+.m-l-md{ margin-left: 15px; }
+.m-r-md{ margin-right: 15px; }
+
+/* 内边距 */
+.p-t-xs{ margin-left: 10px; }
+.p-b-xs{ margin-bottom: 10px; }
+.p-l-xs{ margin-left: 10px; }
+.p-r-xs{ margin-right: 10px; }
+
+.p-t-md{ margin-left: 15px; }
+.p-b-md{ margin-bottom: 15px; }
+.p-l-md{ margin-left: 15px; }
+.p-r-md{ margin-right: 15px; }

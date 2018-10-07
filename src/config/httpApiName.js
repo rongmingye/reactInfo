@@ -4,6 +4,7 @@ const ApiName = {
         userInfo: "/user/info", // 用户信息
         userChangeInfo: "/user/changeInfo", // 用户信息
         userRepassword: "/user/repassword", // 改密码
+        
         studentPractice: "/student/practice", //学生实习信息
         studentPublicPractice: "/student/publicPractice", // 发布实习信息
         teacherPractices: "/teacher/practices", // 老师的学生们实习
@@ -25,8 +26,24 @@ const ApiName = {
         publicNews: "/public/news", // 发布新闻
         deleteNews: "/delete/news", // 删除新闻
         deleteEmploy: "/delete/employ", // 删除招聘
-        deleteQuestion: "/delete/question", // 删除招聘
+        deleteQuestion: "/delete/question", // 删除论坛话题
+        deleteNotice: "/delete/notice", // 删除公告
+        noticeInfo: "/info/notice", //查询公告
 
+        excelExport: "/teacher/excelExport", //下载excel表
+        publicNotice: "/public/notice",  // 发布公告
+        studentNotices: "/student/notices",  // 查询所有公告
+        noticesNewNum: '/student/noticesNewNum', // 新公告数量
+
+        //毕业设计
+        teacherDesign: "/teacher/designs", // 获取该老师的所有题目
+        publishDesign: "/design/publish", // 老师发布/删除题目
+        selectDesignStudent: "/teacher/selectStudent", // 老师选择/取消选择学生
+        getTeachers: "/teacher/all", // 获取所有老师
+        getStudentDesign: "/student/selecteds", // 获取该学生的选择的题目
+        selectDesign: "/student/selectDesign", // 学生选择/取消选择题目
+
+        getGrade: "/student/grade", // 获取所有年级和班级
 }
 
 export default ApiName

@@ -1,7 +1,31 @@
 var date = { 
 
-	currentSecond: function(){
-		var date = new Date();
+	// 当前日期
+	currentDate: function(timestamp){
+		var date = null;
+		if(timestamp){
+			date = new Date(timestamp);
+		}else{
+			date = new Date();
+		}
+		
+	    var year = date.getFullYear();
+	    var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth()+1) : date.getMonth()+1;
+	    var strDate = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+
+	    var currentDate = year + "-" + month + "-" + strDate;
+
+	    return currentDate;
+	},
+
+	// 当前时间， 精确到秒
+	currentSecond: function(timestamp){
+		var date = null;
+		if(timestamp){
+			date = new Date(timestamp);
+		}else{
+			date = new Date();
+		}
 
 	    var year = date.getFullYear();
 	    var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth()+1) : date.getMonth()+1;
@@ -17,8 +41,14 @@ var date = {
 	    return currentTime;
 	},
 
-	currentMinute: function(){
-		var date = new Date();
+	// 当前时间，精确到分
+	currentMinute: function(timestamp){
+		var date = null;
+		if(timestamp){
+			date = new Date(timestamp);
+		}else{
+			date = new Date();
+		}
 
 	    var year = date.getFullYear();
 	    var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth()+1) : date.getMonth()+1;

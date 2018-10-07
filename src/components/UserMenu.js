@@ -1,11 +1,11 @@
 import React from 'react';
-import { Menu, Dropdown, Icon, Row, Col, Button, Modal, Form, Input, message } from 'antd';
+import { Menu, Dropdown, Icon, Row, Col, Button, Modal, Form, Input, message, Popconfirm } from 'antd';
 import './css/userMenu.css';
 const FormItem = Form.Item;
 
 class UserMenu extends React.Component{
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.state = {
 			userInfo: "",
 			username: sessionStorage.getItem('username'),
@@ -73,6 +73,13 @@ class UserMenu extends React.Component{
 		})
 	}
 
+    // 退出系统
+    logout = (e) => {
+    	console.log('logout');
+       window.location.href = '/';
+        sessionStorage.clear();
+    }
+
 	render(){
 		var menu = <div></div>;
 		var item = this.state.userInfo;
@@ -96,6 +103,12 @@ class UserMenu extends React.Component{
 			        		<Col span={4} offset={6}><Button onClick={this.openChangeTelModal}>修改电话</Button></Col>
 			        	</Row>
 			        </Menu.Item>
+			        <Menu.Divider />
+			        <Menu.Item>
+			        	<Popconfirm title="确定要退出系统" onConfirm={this.logout} okText="确定" cancelText="取消"> 
+                            <Icon type="poweroff" />&nbsp;&nbsp;退出系统
+                        </Popconfirm >
+			     	</Menu.Item>
 		    	</Menu>);
 		}
 
@@ -131,6 +144,12 @@ class UserMenu extends React.Component{
 			        		<Col span={4} offset={6}><Button onClick={this.openChangeTelModal}>修改电话</Button></Col>
 			        	</Row>
 			        </Menu.Item>
+			         <Menu.Divider />
+			        <Menu.Item>
+			        	<Popconfirm title="确定要退出系统" onConfirm={this.logout} okText="确定" cancelText="取消"> 
+                            <Icon type="poweroff" />&nbsp;&nbsp;退出系统
+                        </Popconfirm >
+	               	</Menu.Item>
 		    	</Menu>);
 		}
 
@@ -179,22 +198,24 @@ class RepasswordForm extends React.Component{
 	    e.preventDefault();
 	    this.props.form.validateFieldsAndScroll((err, values) => {
 		    if (!err) {
-		        // console.log('Received values of form: ', values);
-		       var params = {
-					username: sessionStorage.getItem('username'),
-					userType: sessionStorage.getItem('userType'),
-					oldPwd: values.oldPassword,
-					newPwd: values.newPassword
-				}
-		        window.Axios.post(window.ApiName.userRepassword, params).then(res=>{
-		        	// console.log(res);
-		        	message.info("修改密码成功");
-		        	window.setTimeout(function(){
-		        		window.location.reload();
-		        	}, 1000);
-		        }).catch(err=>{
-		        	console.log(err);
-		        })
+		    	if(values.againPassword === values.newPassword){
+		    		var params = {
+						username: sessionStorage.getItem('username'),
+						userType: sessionStorage.getItem('userType'),
+						oldPwd: values.oldPassword,
+						newPwd: values.newPassword
+					}
+			        window.Axios.post(window.ApiName.userRepassword, params).then(res=>{
+			        	message.info("修改密码成功");
+			        	window.setTimeout(function(){
+			        		window.location.reload();
+			        	}, 1000);
+			        }).catch(err=>{
+			        	console.log(err);
+			        })
+		    	}else{
+		    		message.info("两次输入的新密码不一致");
+		    	}
 		    }
 	    });
 	}
@@ -217,7 +238,7 @@ class RepasswordForm extends React.Component{
 			           <Input type="password" />
 			        )}
 				</FormItem>
-				<FormItem label="再次输入旧密码">
+				<FormItem label="再次输入新密码">
 					{getFieldDecorator('againPassword', {
 			            rules: [{ required: true, message: '请再次输入旧密码', whitespace: true }],
 			        })(

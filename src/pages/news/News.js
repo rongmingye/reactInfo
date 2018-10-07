@@ -21,18 +21,13 @@ class News extends React.Component{
 	}
 
 	render(){
-		var dataSource = [];
-		this.state.newsInfo.map((item, i)=>{
-			dataSource.unshift(item);
-			return null;
-		});
 
 		return (
 			<div className="news">
 				<List
 			      header={<h3>校园风采奖</h3>}
 			      bordered
-			      dataSource={dataSource}
+			      dataSource={this.state.newsInfo}
 			      renderItem={item => (
 			      	<List.Item style={{display: 'block'}}>
 			      	<a href={item.news_link} target='_blank' style={{display: 'block', width: "100%", clear: "both"}}>

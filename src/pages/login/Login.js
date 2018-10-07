@@ -10,10 +10,10 @@ class Login extends React.Component{
 	constructor(){
 		super();
 		this.changeUserType = this.changeUserType.bind(this);
-		this.changeUsername = this.changeUsername.bind(this);
+		this.changeAccount = this.changeAccount.bind(this);
 		this.changePwd = this.changePwd.bind(this);
 		this.state = {
-			username: "",
+			account: "",
 			pwd: "",
 			userType: "student" 
 		}
@@ -24,7 +24,7 @@ class Login extends React.Component{
 	// 保存uesrType username isLogin到sessionStorage
 	loginHandle(){
 		var params = {
-			username: this.state.username,
+			account: this.state.account,
 			password: this.state.pwd,
 			userType: this.state.userType
 		}
@@ -35,14 +35,15 @@ class Login extends React.Component{
 				sessionStorage.setItem("isLogin", true);
 				sessionStorage.setItem("title1", "校园新闻");
         		sessionStorage.setItem("title2", "校园风采");
+        		sessionStorage.setItem("account", this.state.account);
 	
 				if(this.state.userType === "student"){
-					sessionStorage.setItem("username", this.state.username);
+					sessionStorage.setItem("username", res.result.username);
 					sessionStorage.setItem("userType", "student");
 					this.props.history.push("/main"); 
 				
 				}else if(this.state.userType === "teacher"){
-					sessionStorage.setItem("username", this.state.username);
+					sessionStorage.setItem("username", res.result.username);
 					sessionStorage.setItem("userType", "teacher");
 					this.props.history.push("/main");
 				}
@@ -63,9 +64,9 @@ class Login extends React.Component{
 	}
 
 	// 改变用户名
-	changeUsername(e){
+	changeAccount(e){
 		this.setState({
-			username: e.target.value
+			account: e.target.value
 		})
 	}
 
@@ -86,7 +87,7 @@ class Login extends React.Component{
 	                <p className="text-left login-a h5">登录</p>
 	                <hr className="no-margins no-padding hr" />
 					<FormItem>
-					    <Input type="text" id="username" placeholder="用户名" onChange={this.changeUsername} />
+					    <Input type="text" id="account" placeholder="账号" onChange={this.changeAccount} />
 					</FormItem>
 					<FormItem>
 					    <Input type="password" id="pwd" placeholder="密码" onChange={this.changePwd} />

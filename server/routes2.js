@@ -40,12 +40,16 @@ function routes2(app){
 				return;
 			}
 
+			// 最新的放到数组最前面
+			var _result = [];
 			result.map(function(item, index){
 				// console.log(item);
 				item.required = item.required.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 				item.required = item.required.replace(/ /g, "&nbsp;").replace(/\r\n/g, "<br />");
 				item.required = item.required.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;");
+				_result.unshift(item);
 			});
+
 	    	var data = {
 	    		code: 1,
 	    		data: result,
@@ -66,9 +70,16 @@ function routes2(app){
 				console.log(err.message);
 				return;
 			}
+
+			// 最新的放到数组最前面
+			var _result = [];
+			result.map(function(item,i){
+			 	_result.unshift(item);
+			});
+
 			var data = {
 				code: 1,
-				data: result,
+				data: _result,
 				msg: "",
 			}
 			console.log("/school/news success");
@@ -108,9 +119,17 @@ function routes2(app){
 				console.log(err.message);
 				return;
 			}
+
+			// 最新的放到数组最前面
+			var _result = [];
+			result.map(function(item,i){
+				item.key = i;
+			 	_result.unshift(item);
+			});
+
 			var data = {
 				code: 1,
-				data: result,
+				data: _result,
 				msg: "",
 			}
 			console.log("/board/getQuestions success");

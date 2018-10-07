@@ -38,13 +38,13 @@ class ClassStudents extends React.Component{
 		return (
 			<div className="className">
 				<List 
-					header={<Row><Col span={6}>姓名</Col><Col span={8}>班级</Col><Col span={6}>电话</Col></Row>}
+					header={<Row><Col span={6}>姓名</Col><Col span={8}>学号</Col><Col span={6}>电话</Col></Row>}
 			      	bordered
 					dataSource={this.state.classStudents}
 					renderItem={item=>(
 							<Row><List.Item>
 								<Col span={6}>{item.student_name}</Col>
-								<Col span={8}>{item.class_name}</Col>
+								<Col span={8}>{item.student_id}</Col>
 								<Col span={6}>{item.student_tel}</Col>
 							</List.Item></Row>
 					)}/>

@@ -7,11 +7,60 @@ var getNowTime = require('./date.js');
 // app 管理 get/post
 function routes(app){
 
+	// 获取所有年级和班级
+	app.get('/student/grade', urlencodedParser, function(req, res){
+		console.log("/student/grade");
+		var sql = "select * from student";
+	    query(sql, function(err, result){
+			if(err) {
+				console.log(err.message);
+				return;
+			}
+			var resultData = {grades:[], classNames: []};
+			var resultGradeObj = {};
+			var resultClassObj = {};
+
+			result.map(function(item, i){
+				item.grade = item.grade.slice(0, -1);
+				item.class_name = item.class_name.slice(2);
+
+				if(!resultGradeObj[item.grade]){
+					resultData.grades.push(item.grade);
+					resultGradeObj[item.grade] = 1;
+				}
+				if(!resultClassObj[item.class_name]){
+					resultData.classNames.push(item.class_name);
+					resultClassObj[item.class_name] = 1;
+				}
+			})
+
+			resultData.grades = resultData.grades.map(function(item,i){
+				return item+"级";
+			})
+
+			resultData.classNames = resultData.classNames.map(function(item,i){
+				return "本科"+item;
+			})
+
+
+			var data = {
+				code: 1,
+				data: resultData,
+				msg: "",
+			}
+			console.log("/student/grade");
+			res.send(data);
+			res.end();  
+	    });
+	});
+
 	// 获取该老师的学生们的实习信息
 	app.post('/teacher/practices', urlencodedParser, function(req, res){
 		console.log("/teacher/practices");
+		var request = req.body;
+		grade = request.grade;
 		var sql = "select * from student inner join info on student.student_id = info.student_id where info.teacher_name ='"
-			+req.body.teacher_name+"'";
+			+request.teacher_name+"' AND  student.grade='"+request.grade+"'";
 	    query(sql, function(err, result){
 			if(err) {
 				console.log(err.message);

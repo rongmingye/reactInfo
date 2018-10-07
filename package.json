@@ -12,6 +12,7 @@
     "https": "^1.0.0",
     "jquery": "^3.3.1",
     "mysql": "^2.15.0",
+    "node-excel-export": "^1.4.4",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
@@ -24,5 +25,5 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
+  }
 }
