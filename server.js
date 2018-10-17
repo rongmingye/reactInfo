@@ -1,14 +1,6 @@
 var express = require('express'); // 快速构建服务器
-var app = express();
+var compression = require('compression'); // gzip压缩
 var cors = require('cors');
-
-app.use(cors({
-    credentials: true, 
-    origin: "http://localhost:3000" 
-}));
-
-app.use(express.static(__dirname+"/src")); //views路径
-
 // 后台模块包
 var query = require('./server/mysql.js');
 var login = require('./server/login.js');
@@ -19,6 +11,18 @@ var routesLoad = require('./server/routesLoad.js');
 var routesNotice = require('./server/routesNotice.js');
 var routesDesign = require('./server/routesDesign.js');
 
+var developState = "/public"; //开发时是"/public", 打包后用"/build"
+
+var app = express();
+app.use(compression());
+
+app.use(cors({
+    credentials: true, 
+    origin: "http://localhost:3000" 
+}));
+app.use(express.static(__dirname+developState)); //views路径
+
+// 
 login(app);
 routes(app);
 routes2(app);
@@ -29,7 +33,7 @@ routesDesign(app);
 
 // 所有的请求都回到index页面
 app.get('/', function(req, res){
-    res.sendFile(__dirname+'/public/index.html');
+    res.sendFile(__dirname+developState+'/index.html');
 });
 
 // 监听端口
