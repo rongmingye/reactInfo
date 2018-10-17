@@ -25,7 +25,7 @@ class ClassStudents extends React.Component{
 		var params = {
 			className: sessionStorage.getItem('targetClass')
 		}
-		window.Axios.post(window.ApiName.schoolClassStudents, params).then( res =>{
+		window.Axios.get(window.ApiName.schoolClassStudents, {params: params}).then( res =>{
 			this.setState({
 				classStudents: res.data
 			})

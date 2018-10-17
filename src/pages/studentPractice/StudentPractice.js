@@ -23,7 +23,7 @@ class StudentPractice extends React.Component{
 			student_name: sessionStorage.getItem("username"),
 		}
 		// console.log("params:"+JSON.stringify(params));
-		window.Axios.post(window.ApiName.studentPractice, params).then( res => {
+		window.Axios.get(window.ApiName.studentPractice, {params: params}).then( res => {
 			// console.log(res);
 			this.setState({
 				studentPractice: res.data

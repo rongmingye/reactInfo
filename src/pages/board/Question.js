@@ -1,6 +1,6 @@
 import React from "react";
 import { List, Row, Input, Modal, Button, message } from 'antd';
-import date from '../../config/date.js';
+import date from '../../config/utils/date.js';
 
 import Reply from './Reply'
 
@@ -30,7 +30,7 @@ class Question extends React.Component{
 		var params = {
 			questionId: sessionStorage.getItem("questionId")
 		}
-		window.Axios.post(window.ApiName.boardGetQuestion, params).then(res=>{
+		window.Axios.get(window.ApiName.boardGetQuestion, {params: params}).then(res=>{
 			this.setState({
 				questionInfo: res.data,
 				questionAuthor: res.data.question_author
@@ -45,7 +45,7 @@ class Question extends React.Component{
 		var params = {
 			questionId: sessionStorage.getItem("questionId")
 		}
-		window.Axios.post(window.ApiName.boardGetComments, params).then(res=>{
+		window.Axios.get(window.ApiName.boardGetComments, {params: params}).then(res=>{
 			// console.log(res);
 			this.setState({
 				commentsInfo: res.data,
@@ -60,7 +60,7 @@ class Question extends React.Component{
 		var params = {
 			questionId: sessionStorage.getItem("questionId")
 		}
-		window.Axios.post(window.ApiName.boardGetReplys, params).then(res=>{
+		window.Axios.get(window.ApiName.boardGetReplys, {params: params}).then(res=>{
 			// console.log(res);
 			this.setState({
 				replysInfo: res.data,
@@ -198,7 +198,8 @@ class Question extends React.Component{
 							<Row>{item.comment_author}: {item.comment_content}</Row>
 							<Row>
 								<span style={{marginLeft: "0"}}>{item.comment_timer}</span>
-								<span style={{marginLeft: "20px"}} onClick={()=>this.showReplyModal(item.comment_id, item.comment_author)}>回复</span>
+								<span style={{marginLeft: "20px", cursor: "pointer"}} 
+									onClick={()=>this.showReplyModal(item.comment_id, item.comment_author)}>回复</span>
 							</Row>
 							<Row>
 								<Reply replys={this.state.replysInfo} commentId={item.comment_id} />

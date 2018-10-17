@@ -16,7 +16,7 @@ class ManagerEmploy extends React.Component{
 
 	// 请求招聘信息
 	getEmployInfo(){
-		window.Axios.post(window.ApiName.employInfo).then(res=>{
+		window.Axios.get(window.ApiName.employInfo).then(res=>{
 			this.setState({
 				employInfo: res.data
 			})

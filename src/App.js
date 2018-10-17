@@ -89,7 +89,7 @@ class Main extends Component {
         var params = {
             studentId: sessionStorage.getItem("account")
         }
-        window.Axios.post(window.ApiName.noticesNewNum, params).then(res=>{
+        window.Axios.get(window.ApiName.noticesNewNum, {params: params}).then(res=>{
             // console.log(res);
             this.setState({
                 noticesNum: res.data,

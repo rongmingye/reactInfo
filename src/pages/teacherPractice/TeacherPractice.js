@@ -1,6 +1,6 @@
 import React from "react";
 import { List, Modal, Divider, Button, Popconfirm, Form, Input, message } from 'antd';
-import date from  '../../config/date.js';
+import date from  '../../config/utils/date.js';
 const FormItem = Form.Item;
 
 class TeacherPractice extends React.Component{
@@ -36,8 +36,9 @@ class TeacherPractice extends React.Component{
 			grade: grade,
 			teacher_name: sessionStorage.getItem("username")
 		}
-		window.Axios.post(window.ApiName.teacherPractices, params).then(res=>{
-			// console.log(res);
+		console.log(params);
+		window.Axios.get(window.ApiName.teacherPractices, {params: params}).then(res=>{
+			console.log(res);
 			var studentsId = res.data.map((item, i)=>{
 				return item.student_id
 			})

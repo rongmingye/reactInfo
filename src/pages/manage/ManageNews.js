@@ -17,7 +17,7 @@ class ManagerNews extends React.Component{
 
 	// 请求新闻信息
 	getNews(){
-		window.Axios.post(window.ApiName.schoolNews).then(res=>{
+		window.Axios.get(window.ApiName.schoolNews).then(res=>{
 			this.setState({
 				news: res.data
 			})

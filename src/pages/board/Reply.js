@@ -1,7 +1,6 @@
 import React from "react";
 import { Row,  Input, Modal,  message } from 'antd';
-import date from '../../config/date.js';
-
+import date from '../../config/utils/date.js';
 
 // 回复的组件
 class Reply extends React.Component{
@@ -28,6 +27,7 @@ class Reply extends React.Component{
 	    });
 	}
 
+	// 提交回复
 	submitReply = (e) =>{
 		var author = sessionStorage.getItem("username");
 		if(sessionStorage.getItem("studentClass")){

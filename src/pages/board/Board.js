@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Row, Col, Input, Modal, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
-import date from '../../config/date.js';
+import date from '../../config/utils/date.js';
 
 class Board extends React.Component{
 	constructor(){
@@ -18,7 +18,7 @@ class Board extends React.Component{
 
 	// 获取话题列表信息
 	getQuestions =()=>{
-		window.Axios.post(window.ApiName.boardGetQuestions).then(res=>{
+		window.Axios.get(window.ApiName.boardGetQuestions).then(res=>{
 			this.setState({
 				questions: res.data
 			})

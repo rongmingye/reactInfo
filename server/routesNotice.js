@@ -2,15 +2,48 @@ var query = require('./mysql.js');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser({extended: false});
 
-var getNowTime = require('./date.js');
-
 // app 管理 get/post
 function routesNotice(app){
 
+	// 查询所有公告
+	app.get('/info/notice', urlencodedParser, function(req, res){
+		console.log("/info/notice");
+		var request = req.query;
+		var sql = "select * from notice";
+
+    	query(sql, function(err, result){
+			if(err) {
+				console.log(err.message);
+				return;
+			}
+
+			// 获取该学生未读的条数
+			var noticeId = '';
+			var _result = [];
+			_result = result.filter(function(item,i){
+			 	if(noticeId !== item.unique_notice_id){
+			 		noticeId = item.unique_notice_id;
+			 		return true;
+			 	}else{
+			 		return false;
+			 	}
+			})
+
+			var data = {
+				code: 1,
+				data: _result,
+				msg: "",
+			}
+			console.log("/info/notice success");
+			res.send(data);
+			res.end(); 	
+	    });
+	});
+
 	// 获取未读公告数量
-	app.post('/student/noticesNewNum', urlencodedParser, function(req, res){
+	app.get('/student/noticesNewNum', urlencodedParser, function(req, res){
 		console.log("/student/noticesNewNum");
-		var request = req.body;
+		var request = req.query;
 		var sql = "select * from notice where student_id = '"+request.studentId+"'";
 
     	query(sql, function(err, result){
@@ -39,9 +72,9 @@ function routesNotice(app){
 	});
 
 	// 获取公告信息，并将未读该为已读
-	app.post('/student/notices', urlencodedParser, function(req, res){
+	app.get('/student/notices', urlencodedParser, function(req, res){
 		console.log("/student/notices");
-		var request = req.body;
+		var request = req.query;
 		var sql = "select * from notice where student_id = '"+request.studentId+"'";
 
     	query(sql, function(err, result){

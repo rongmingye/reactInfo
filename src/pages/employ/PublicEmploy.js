@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, Input, message} from 'antd';
 const FormItem = Form.Item;
 
-// 查看招聘信息
+// 发布招聘信息
 class PublicEmployForm extends React.Component{
 
 	handleSubmit = (e) => {
@@ -65,7 +65,7 @@ class PublicEmployForm extends React.Component{
 				</FormItem>
 				<FormItem label="吃住：">
 					{getFieldDecorator('eatLive', {
-			            rules: [{ required: true, message: '请输入吃住情况', whitespace: true }],
+			            rules: [{message: '请输入吃住情况', whitespace: true }],
 			          })(
 			           <Input />
 			        )}

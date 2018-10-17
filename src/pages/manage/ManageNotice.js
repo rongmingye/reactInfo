@@ -14,9 +14,9 @@ class ManagerNotice extends React.Component{
 		this.getNoticeInfo();
 	}
 
-	// 请求公告列表
+	// 请求所有公告列表
 	getNoticeInfo(){
-		window.Axios.post(window.ApiName.noticeInfo).then(res=>{
+		window.Axios.get(window.ApiName.noticeInfo).then(res=>{
 			this.setState({
 				noticeInfo: res.data
 			})

@@ -20,7 +20,7 @@ class NoticeList extends React.Component{
 		var params = {
 			studentId: sessionStorage.getItem("account")
 		}
-		window.Axios.post(window.ApiName.studentNotices, params).then(res=>{
+		window.Axios.get(window.ApiName.studentNotices, {params: params}).then(res=>{
 			this.setState({
 				notices: res.data,
 			})

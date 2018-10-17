@@ -4,16 +4,14 @@ var query = require('./mysql.js');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser({extended: false});
 
-var getNowTime = require('./date.js');
-
 // app 管理 get/post
 function routesDesign(app){
 
 	// 查询该老师的所有毕业设计题目
-	app.post('/teacher/designs', urlencodedParser, function(req, res){
+	app.get('/teacher/designs', urlencodedParser, function(req, res){
 		console.log("/teacher/designs");
 		var resultData = "";
-		var request = req.body;
+		var request = req.query;
 		var sql = "select * from design where teacher_id ='"+request.teacherId+"' and grade='"+request.grade+"'";
 	    query(sql, function(err, result){
 			if(err) {
@@ -210,9 +208,9 @@ function routesDesign(app){
 	});
 
 	// 查询该该学生所有选择的毕业设计题目
-	app.post('/student/selecteds', urlencodedParser, function(req, res){
+	app.get('/student/selecteds', urlencodedParser, function(req, res){
 		console.log("/student/selecteds");
-		var request = req.body;
+		var request = req.query;
 		var sql = "select * from design left join design_info on design.design_id = design_info.design_id where student_id ='"
 			+request.studentId+"'";
 	    query(sql, function(err, result){

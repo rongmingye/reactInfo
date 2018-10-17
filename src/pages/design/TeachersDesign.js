@@ -53,7 +53,7 @@ class TeachersDesign extends React.Component{
 			teacherId: this.state.teacherId,
 			grade: this.state.grade
 		}
-		window.Axios.post(window.ApiName.teacherDesign, params).then(res=>{
+		window.Axios.get(window.ApiName.teacherDesign, {params: params}).then(res=>{
 			this.setState({
 				designTitles: res.data 
 			})

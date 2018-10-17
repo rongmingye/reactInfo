@@ -21,7 +21,7 @@ class studentDesign extends React.Component{
 		var params = {
 			studentId: sessionStorage.account,
 		}
-		window.Axios.post(window.ApiName.getStudentDesign, params).then(res=>{
+		window.Axios.get(window.ApiName.getStudentDesign, {params: params}).then(res=>{
 			this.setState({
 				designTitles: res.data
 			})

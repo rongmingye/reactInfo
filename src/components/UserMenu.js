@@ -15,11 +15,12 @@ class UserMenu extends React.Component{
 		}
 	}
 	componentDidMount(){
+		// 获取用户信息
 		var params = {
-			username: sessionStorage.getItem('username'),
-			userType: sessionStorage.getItem('userType'),
+			username: this.state.username,
+			userType: this.state.userType,
 		}
-		window.Axios.post(window.ApiName.userInfo, params).then(res=>{
+		window.Axios.get(window.ApiName.userInfo, {params: params}).then(res=>{
 			// console.log(res);
 			this.setState({
 				userInfo: res.data
@@ -57,8 +58,8 @@ class UserMenu extends React.Component{
 
 	submitTel = (e) =>{
 		var params = {
-			username: sessionStorage.getItem('username'),
-			userType: sessionStorage.getItem('userType'),
+			username: this.state.username,
+			userType: this.state.userType,
 			tel: document.querySelector("#tel").value
 		}
 		// console.log(params);

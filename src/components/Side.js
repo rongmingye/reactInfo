@@ -20,7 +20,7 @@ class Side extends React.Component{
 		}
 	}
 
-	componentWillMount(){
+	componentDidMount(){
 		window.Axios.get(window.ApiName.getGrade).then(res=>{
             // console.log(JSON.stringify(res));
             this.setState({

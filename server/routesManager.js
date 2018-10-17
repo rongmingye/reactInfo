@@ -2,8 +2,6 @@ var query = require('./mysql.js');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser({extended: false});
 
-var getNowTime = require('./date.js');
-
 // app 管理 get/post
 function routesManager(app){	
 	// 发布新闻
@@ -104,41 +102,6 @@ function routesManager(app){
 			console.log("/delete/notice success");
 			res.send(data);
 	        res.end();  	
-	    });
-	});
-
-	// 查询公告
-	app.post('/info/notice', urlencodedParser, function(req, res){
-		console.log("/info/notice");
-		var request = req.body;
-		var sql = "select * from notice";
-
-    	query(sql, function(err, result){
-			if(err) {
-				console.log(err.message);
-				return;
-			}
-
-			// 获取该学生未读的条数
-			var noticeId = '';
-			var _result = [];
-			_result = result.filter(function(item,i){
-			 	if(noticeId !== item.unique_notice_id){
-			 		noticeId = item.unique_notice_id;
-			 		return true;
-			 	}else{
-			 		return false;
-			 	}
-			})
-
-			var data = {
-				code: 1,
-				data: _result,
-				msg: "",
-			}
-			console.log("/info/notice success");
-			res.send(data);
-			res.end(); 	
 	    });
 	});
 

@@ -10,7 +10,8 @@ class News extends React.Component{
 	}
 
 	componentDidMount(){
-		window.Axios.post(window.ApiName.schoolNews).then( res => {
+		// 获取校园风采列表
+		window.Axios.get(window.ApiName.schoolNews).then( res => {
 			// console.log(res);
 			this.setState({
 				newsInfo: res.data

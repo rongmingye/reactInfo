@@ -30,7 +30,7 @@ class TeacherDesign extends React.Component{
 			teacherId: sessionStorage.account,
 			grade: this.state.grade
 		}
-		window.Axios.post(window.ApiName.teacherDesign, params).then(res=>{
+		window.Axios.get(window.ApiName.teacherDesign, {params: params}).then(res=>{
 			this.setState({
 				designTitles: res.data
 			})

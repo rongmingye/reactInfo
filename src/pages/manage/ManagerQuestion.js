@@ -16,7 +16,7 @@ class ManagerQuestion extends React.Component{
 
 	// 请求话题信息
 	getQuestions(){
-		window.Axios.post(window.ApiName.boardGetQuestions).then(res=>{
+		window.Axios.get(window.ApiName.boardGetQuestions).then(res=>{
 			this.setState({
 				questions: res.data
 			})

@@ -2,8 +2,6 @@ var query = require('./mysql.js');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser({extended: false});
 
-var getNowTime = require('./date.js');
-
 // app 管理 get/post
 function routes(app){
 
@@ -55,10 +53,10 @@ function routes(app){
 	});
 
 	// 获取该老师的学生们的实习信息
-	app.post('/teacher/practices', urlencodedParser, function(req, res){
+	app.get('/teacher/practices', urlencodedParser, function(req, res){
 		console.log("/teacher/practices");
-		var request = req.body;
-		grade = request.grade;
+		var request = req.query;
+		console.log(request)
 		var sql = "select * from student inner join info on student.student_id = info.student_id where info.teacher_name ='"
 			+request.teacher_name+"' AND  student.grade='"+request.grade+"'";
 	    query(sql, function(err, result){
@@ -78,10 +76,10 @@ function routes(app){
 	});
 
 	// 获取该学生的实习信息
-	app.post('/student/practice', urlencodedParser, function(req, res){
+	app.get('/student/practice', urlencodedParser, function(req, res){
 		console.log("/student/practice");
-		var odata = req.body;
-		var sql = "select * from student inner join info on student.student_id = info.student_id where info.student_name ='"+odata.student_name+"'";
+		var request = req.query;
+		var sql = "select * from student inner join info on student.student_id = info.student_id where info.student_name ='"+request.student_name+"'";
 	    query(sql, function(err, result){
 			if(err) {
 				console.log(err.message);
@@ -100,12 +98,13 @@ function routes(app){
 	});
 
 	// 获取用户信息
-	app.post('/user/info', urlencodedParser, function(req, res){
+	app.get('/user/info', urlencodedParser, function(req, res){
 		console.log("/user/info");
-		if(req.body.userType==="student"){
-			var sql = "select * from student where student_name ='"+req.body.username+"'";
-		}else if(req.body.userType==="teacher"){
-			var sql = "select * from teacher where teacher_name ='"+req.body.username+"'";
+		var request = req.query;
+		if(request.userType==="student"){
+			var sql = "select * from student where student_name ='"+request.username+"'";
+		}else if(request.userType==="teacher"){
+			var sql = "select * from teacher where teacher_name ='"+request.username+"'";
 		}
 	    query(sql, function(err, result){
 			if(err) {
