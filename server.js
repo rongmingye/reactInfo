@@ -1,3 +1,5 @@
+// 项目创建时间 2018/08/01
+
 var express = require('express'); // 快速构建服务器
 var compression = require('compression'); // gzip压缩
 var cors = require('cors');
@@ -20,6 +22,7 @@ app.use(cors({
     credentials: true, 
     origin: "http://localhost:3000" 
 }));
+
 app.use(express.static(__dirname+developState)); //views路径
 
 // 
